@@ -189,3 +189,190 @@ All measures reside in the `CalMeasures` table, organised into display folders.
 | `QOQ%` | `DIVIDE([Total Sales]-[PQ Sales],[PQ Sales],0)` | |
 | `Running Totals` | `CALCULATE([Total Sales], FILTER(ALLSELECTED(...), Date<=MAX(Date)))` | Cumulative to selected date |
 | `Avg Sales Price` | `AVERAGE(Fact_Sales[  Sales ])` | |
+
+
+### Profit
+
+| Measure | DAX Pattern | Notes |
+|---|---|---|
+| `Total Profit` | `SUM(Fact_Sales[  Profit  ])` | |
+| `PY Profit` | `CALCULATE([Total Profit], SAMEPERIODLASTYEAR(...))` | |
+| `PY Profit Growth%` | `DIVIDE([Total Profit]-[PY Profit],[PY Profit])` | |
+| `Profit Margin` | `DIVIDE([Total Profit],[Total Sales],0)` | |
+| `PY Profit Margin` | `CALCULATE([Profit Margin], SAMEPERIODLASTYEAR(...))` | |
+| `PY Profit Margin Growth` | `DIVIDE([Profit Margin]-[PY Profit Margin],[PY Profit Margin])` | |
+
+### Gross Sales, COGS, Discounts
+
+Each metric follows the same pattern: `Total [Metric]` → `PY [Metric]` → `PY [Metric] Growth%` → `[Metric] FORMAT` → `[Metric] Color`
+
+> **Important colour convention:** `Discounts Color` is intentionally *inverted* — a decrease in discounts (negative growth%) colours green, an increase colours red. This correctly treats discount reduction as a positive business outcome.
+
+### Operational Measures
+
+| Measure | Logic | Notes |
+|---|---|---|
+| `On-Time Delivery %` | `COUNTROWS(FILTER(Fact_Sales, Delivery Dates <= RELATED(Dim_Shipmode[EstimatedDeliveryDays])))` / `COUNTROWS(Fact_Sales)` | Both wrapped in `USERELATIONSHIP(DimDate[Date], Fact_Sales[Delivered Date])` |
+| `Avg Delivery Days` | `CALCULATE(AVERAGE(Fact_Sales[Delivery Dates]), USERELATIONSHIP(...))` | Uses inactive Delivered Date relationship |
+| `PY On-Time Delivery` | `CALCULATE([On-Time Delivery %], SAMEPERIODLASTYEAR(...))` | |
+| `PY Avg Delivery Days` | `CALCULATE([Avg Delivery Days], SAMEPERIODLASTYEAR(...))` | |
+| `Total Orders` | `DISTINCTCOUNT(Fact_Sales[OrderID])` | |
+
+### Waterfall P&L Bridge
+
+```dax
+Waterfall Value =
+SWITCH(
+    SELECTEDVALUE('Waterfall Categories'[Category]),
+    "Gross Sales",  [Total Gross Sales],
+    "Discounts",   -[Total Discounts],
+    "Net Sales",    [Total Sales],
+    "COGS",        -[Total COGS],
+    "Profit",       [Total Profit]
+)
+```
+
+This measure drives the Profit Bridge waterfall chart — a visual P&L decomposition showing the exact contribution of each component from Gross Sales down to Profit.
+
+## 10. Report Pages & Visuals
+
+### Page 1 - Executive Overview
+Single-page leadership summary. KPI cards for Sales, Profit, COGS, Discounts, Gross Sales with PY comparators. Monthly Sales Trend (line chart), Product KPI Analysis (clustered column), Top 5 Products by Profit Margin (table), Sales by Promotion Channel (donut). Field parameter slicer for dynamic metric switching. Slicers: Year, Country, Product. Navigation bookmarks to all main pages.
+
+### Page 2 - Product Deep-Dive
+Product-level revenue and profitability. Gross Sales by Product (column chart), Profit Bridge Analysis (waterfall using `Waterfall Value` measure), product bar charts, donut breakdown. Slicers: Year, Country, Promotion Channel, Ship Mode.
+
+### Page 3 - Delivery & Promos
+Operational and promotional performance. Operational Efficiency (clustered bar), Ship Mode Operational Efficiency (column chart), Discount % by Promotion Type (column), Sales Lifting During Active Promos (bar chart). Slicers: Promotion Name, Year, Ship Mode.
+
+### Page 4 - Trend & Growth Analytics
+Multi-year trend and seasonality analysis. Annual Business Performance (combo — Sales + Profit), Country-wise Sales & Profit Analysis (combo), Discount Impact on Quarterly Profit (combo), Profit by Year (line). Slicers: Year, Product, Quarter.
+
+### Page 5 - Overview
+Full interactive single-page view with collapsible slicer panel (bookmark-controlled). Geographic shape map, all core visuals, full slicer set including Shipping Carrier. Designed for ad-hoc exploration.
+
+### Page 6 - KPIs
+Granular KPI scorecard with 15 KPI cards covering all core and operational metrics. Every metric shows current value, PY comparator, growth %, and colour-coded directional indicator. Slicers: Year, Country, Quarter. Three domain grouping sections (Sales / Operational / Efficiency).
+
+### Page 7 - Product Detailed
+Matrix drill-through: products as rows, full measure set as columns (Sales, Gross Sales, Profit, COGS, Discounts, Units Sold, Profit Margin). Supports portfolio-level analysis.
+
+### Page 8 - Country Detailed
+Four pivot matrices covering sales performance, order volumes, profit analysis, and promotion activity by country — enabling geographic deep-dives directly from summary pages.
+
+### Page 9 - Operational Efficiency
+Transaction-level delivery table and shipmode/carrier pivot with efficiency metrics. Entry point for logistics investigations.
+
+---
+
+## 11. Steps to Improve Business Performance
+The analytical framework built into this dashboard points to six concrete action areas:
+
+**1. Reduce Discount Leakage**
+The `Discount Percentage` and `PY Discount Percentage` measures, combined with the Discount Impact on Quarterly Profit visual, directly surface periods and promotion types where discounting is compressing margin without driving proportional volume. Action: set category-level discount caps; retire promotion types with high `DiscountPercent` and low observable sales lift.
+
+**2. Rationalise the Product Portfolio**
+The Top 5 Products by Profit Margin table and Profit Bridge waterfall identify products that generate revenue but consume disproportionate cost or discount. Action: classify products into a Grow / Maintain / Review / Exit matrix using `Profit Margin` vs. `Total Sales` as the two axes.
+
+**3. Optimise Carrier & Ship Mode Selection**
+The `On-Time Delivery %`, `Avg Delivery Days`, and `Delayed Days` measures reveal which carriers and ship modes are consistently meeting their `EstimatedDeliveryDays` SLA. Action: route priority orders through high-performing modes; trigger SLA review or carrier switch for any mode where `PY Avg Delivery Growth %` is trending upward.
+
+**4. Target Promotion Investment by Channel**
+`Sales by Promotion Channel` and `Sales Lifting During Active Promos` show which channels drive genuine incremental revenue vs. which simply discount existing demand. Action: reallocate promotion budget toward channels with the highest lift-to-discount ratio; use `StartDate` and `EndDate` from `Dim_Promotions` to compare in-promotion vs. out-of-promotion periods.
+
+**5. Focus Growth Effort on High-Margin Markets**
+The Country-wise Sales & Profit combo chart combined with the `Country Detailed` drill-through page identifies markets where sales volume is strong but profit margin is below average. Action: initiate a pricing or cost-structure review in any market where `Profit Margin` is more than 5 percentage points below the portfolio average.
+
+**6. Shift from Reactive to Proactive Tracking**
+The `MTD Sales`, `QTD Sales`, and `YTD Sales` measures with their `MOM%`, `QOQ%`, and `YOY%` growth variants enable week-by-week tracking within the current period. Action: implement a standing weekly review cadence using the KPIs page as the entry point — teams should not wait for month-end close to identify shortfalls.
+
+## 12. Recommendations & Suggestions
+
+### What This Model Does Well
+
+**Centralised measure table (`CalMeasures`)** - all 70+ measures in a single disconnected table is a production best-practice pattern that makes the model portable, testable, and maintainable. Every measure is reusable across all report pages without duplication.
+
+**Consistent FORMAT + Color measure pattern** - pairing every KPI with a `FORMAT` (string with ▲/▼) and `Color` (SWITCH-based hex) measure cleanly separates data logic from presentation logic. This makes the model easy to extend — adding a new KPI requires adding three measures (value, FORMAT, Color) rather than hard-coding formatting in the visual layer.
+
+**USERELATIONSHIP for multi-date-role fact table** - using inactive relationships for `Delivered Date` and `ShipDate` with `USERELATIONSHIP()` in the delivery measures is the correct pattern for a role-playing date dimension. This avoids model duplication while enabling accurate delivery analytics.
+
+**Waterfall Categories as a static DATATABLE** - using `DATATABLE()` to define the P&L bridge categories (Gross Sales → Discounts → Net Sales → COGS → Profit) is a clean, explicit approach that makes the waterfall chart order predictable and maintainable.
+
+**Inverted colour logic for Discounts** - `Discounts Color` correctly treats discount reduction as green (positive). This is a detail that is often missed in less mature models and shows deliberate analytical thinking.
+
+## 13. Technical Stack
+
+| Component | Tool |
+|---|---|
+| Report & Visualisation | Power BI Desktop |
+| Semantic Model Format | TMDL (Tabular Model Definition Language) — PBIR format |
+| Data Modelling | Star Schema — 1 Fact table, 5 Dimension tables |
+| Measure Language | DAX — Time Intelligence, USERELATIONSHIP, SWITCH, DIVIDE, COALESCE patterns |
+| Data Transformation | Power Query (M) — folder connector, CSV import, type enforcement |
+| Calendar Table | DAX `CALENDAR()` + `ADDCOLUMNS()` — 2022 to 2025 |
+| Custom Visuals | Bing Maps (geographic shape map), PayPal KPI Donut Chart |
+| Navigation | Bookmark actions, button-based page navigation, collapsible slicer panel |
+| Dynamic Metrics | Field Parameters (`KPIS` table with `NAMEOF()` references) |
+| P&L Bridge | `Waterfall Categories` DATATABLE + `Waterfall Value` SWITCH measure |
+| Version Control | Git / GitHub (PBIR format enables line-level diff on model changes) |
+
+
+## 14. Data Dictionary
+
+### Fact_Sales
+
+| Column | Type | Description |
+|---|---|---|
+| `OrderID` | String | Unique order identifier — used in `DISTINCTCOUNT` for `Total Orders` |
+| `OrderDate` | Date | Order placement date — **active** relationship to `DimDate` |
+| `ShipDate` | Date | Date order was shipped — inactive relationship to `DimDate` |
+| `Delivered Date` | Date | Actual delivery date — inactive relationship to `DimDate`, activated via `USERELATIONSHIP` in delivery measures |
+| `Country` | String | Destination country (denormalised — also in `Dim_Territory`) |
+| `Products` | String | Product name (denormalised — FK via `ProductID`) |
+| `Units Sold` | Number | Quantity of units per order line |
+| `Manufacturing Price` | Integer | Unit manufacturing cost |
+| `Sale Price` | Integer | Unit sale price before discounts |
+| `Gross Sales` | Number | `Units Sold × Sale Price` — revenue before discounts |
+| `Discounts` | Number | Total discount value applied to order line |
+| `Sales` | Number | Net revenue (`Gross Sales − Discounts`) |
+| `COGS` | Number | Cost of goods sold for the order line |
+| `Profit` | Number | `Sales − COGS` |
+| `TerritoryID` | Integer | FK to `Dim_Territory` |
+| `PromotionID` | String | FK to `Dim_Promotions` |
+| `ShipModeID` | Integer | FK to `Dim_Shipmode` |
+| `ProductID` | String | FK to `Dim_Products` |
+| `[Delivery Dates]` | Calc | `DATEDIFF(ShipDate, Delivered Date, DAY)` — actual days from ship to delivery |
+| `[Delayed Days]` | Calc | `MAX(0, Delivery Dates − EstimatedDeliveryDays)` — days exceeding SLA (0 if on time) |
+
+### DimDate
+
+| Column | Description |
+|---|---|
+| `Date` | Primary key — daily grain, 2022-01-01 to 2025-12-31 |
+| `Year` | Calendar year |
+| `MonthNo` | Month number (1–12) — sort column for `MonthName` |
+| `MonthName` | Abbreviated month name (Jan–Dec) |
+| `Quarter` | Quarter label (Q1–Q4) |
+| `YearMonth` | YYYY-MM format for sorting |
+| `YearQuarter` | YYYY-Qn format for sorting |
+
+### Dim_Promotions
+
+| Column | Description |
+|---|---|
+| `PromotionID` | Primary key |
+| `PromotionName` | Descriptive promotion name |
+| `PromotionType` | Category of promotion (e.g. seasonal, clearance) |
+| `DiscountPercent` | Headline discount rate offered (integer %) |
+| `StartDate` | Promotion start date |
+| `EndDate` | Promotion end date |
+| `PromotionChannel` | Channel through which promotion was distributed |
+
+### Dim_Shipmode
+
+| Column | Description |
+|---|---|
+| `ShipModeID` | Primary key |
+| `ShipMode` | Shipping mode name (e.g. Standard, Express) |
+| `EstimatedDeliveryDays` | SLA — expected maximum delivery days for this mode |
+| `ShippingCarrier` | Carrier name |
