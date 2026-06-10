@@ -49,13 +49,28 @@ This dashboard directly enables the following measurable business outcomes:
 
 **2.  Discount Governance** :-'Discount Percentage` (discounts as % of gross sales) and `PY Discount Percentage` expose whether discount rates are increasing year-over-year; `Discounts Color` signals deterioration automatically
 
-**Promotion ROI**:- Sales lift during active promotions (`Sales lifting during Active Promos` visual) quantified against baseline; `Promotion Discount` measure ties channel-level discount rates to actual revenue
+**3.  Promotion ROI**:- Sales lift during active promotions (`Sales lifting during Active Promos` visual) quantified against baseline; `Promotion Discount` measure ties channel-level discount rates to actual revenue
 
-**Logistics SLA Compliance**:-'On-Time Delivery %` compared to `PY On-Time Delivery` surfaces carrier performance gaps; `Delayed Days` calculated column isolates orders that breached SLA 
+**4.  Logistics SLA Compliance**:-'On-Time Delivery %` compared to `PY On-Time Delivery` surfaces carrier performance gaps; `Delayed Days` calculated column isolates orders that breached SLA 
 
-**In-Period Tracking**:- `MTD Sales`, `QTD Sales`, `YTD Sales` with `MOM%`, `QOQ%`, `YOY%` allow leadership to identify in-period shortfalls before close
+**5.  In-Period Tracking**:- `MTD Sales`, `QTD Sales`, `YTD Sales` with `MOM%`, `QOQ%`, `YOY%` allow leadership to identify in-period shortfalls before close
 
-**Executive Self-Service**:-Field parameter (`KPIS` table) drives dynamic KPI switching on the Executive Overview, removing the need for analyst involvement in routine leadership queries 
+**6.  Executive Self-Service**:-Field parameter (`KPIS` table) drives dynamic KPI switching on the Executive Overview, removing the need for analyst involvement in routine leadership queries 
+
+## 5. Dashboard Impact & Outcomes
+
+The following outcomes are directly enabled by this dashboard:
+
+- ✅ **Profit margin visible at every level** — product, country, promotion channel, and time period
+- ✅ **P&L bridge available on demand** — the Profit Bridge waterfall shows the exact contribution of discounts and COGS to the profit line
+- ✅ **Promotion effectiveness quantified** — sales lift during active campaigns measured and visualised per promotion name and type
+- ✅ **Logistics SLA compliance tracked** — on-time delivery % benchmarked against prior year, by ship mode and carrier
+- ✅ **Year-over-year comparison across all KPIs** — every metric shows PY actual and directional indicator (▲/▼) with colour coding
+- ✅ **In-period alerting** — MTD/QTD/YTD against prior period enables proactive course correction before period close
+- ✅ **Executive self-service** — field parameters and collapsible slicer panel allow leadership to answer their own questions
+- ✅ **Full drill-through capability** — from executive summary through to order-level detail via Product Detailed and Country Detailed pages
+- ✅ **Operational efficiency benchmarking** — ship mode and carrier performance compared side by side
+
 
 **Waterfall P&L View**:-`Waterfall Value` measure (driven by `Waterfall Categories` table: Gross Sales → Discounts → Net Sales → COGS → Profit) provides a visual P&L bridge that explains profit movement in a single chart
 
