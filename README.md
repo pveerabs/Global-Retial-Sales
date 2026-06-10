@@ -46,10 +46,10 @@ This dashboard directly enables the following measurable business outcomes:
 ## Business Area- Impact Enabled
 
 **P&L Management**:- Profit margin tracked at product, country, and promotion-channel level for the first time; `Profit Margin` and `PY Profit Margin` measures enable YoY margin benchmarking 
-**Discount Governance** :-Discount Percentage` (discounts as % of gross sales) and `PY Discount Percentage` expose whether discount rates are increasing year-over-year; `Discounts Color` signals deterioration automatically |
-| **Promotion ROI** | Sales lift during active promotions (`Sales lifting during Active Promos` visual) quantified against baseline; `Promotion Discount` measure ties channel-level discount rates to actual revenue |
-| **Logistics SLA Compliance** | `On-Time Delivery %` compared to `PY On-Time Delivery` surfaces carrier performance gaps; `Delayed Days` calculated column isolates orders that breached SLA |
-| **In-Period Tracking** | `MTD Sales`, `QTD Sales`, `YTD Sales` with `MOM%`, `QOQ%`, `YOY%` allow leadership to identify in-period shortfalls before close |
-| **Executive Self-Service** | Field parameter (`KPIS` table) drives dynamic KPI switching on the Executive Overview, removing the need for analyst involvement in routine leadership queries |
-| **Waterfall P&L View** | `Waterfall Value` measure (driven by `Waterfall Categories` table: Gross Sales → Discounts → Net Sales → COGS → Profit) provides a visual P&L bridge that explains profit movement in a single chart |
-| **Geographic Prioritisation** | Country-level sales and profit analysis (`Dim_Territory`, `shapeMap` visual) identifies which markets to grow, defend, or review |
+**Discount Governance** :-'Discount Percentage` (discounts as % of gross sales) and `PY Discount Percentage` expose whether discount rates are increasing year-over-year; `Discounts Color` signals deterioration automatically
+**Promotion ROI**:- Sales lift during active promotions (`Sales lifting during Active Promos` visual) quantified against baseline; `Promotion Discount` measure ties channel-level discount rates to actual revenue
+**Logistics SLA Compliance**:-'On-Time Delivery %` compared to `PY On-Time Delivery` surfaces carrier performance gaps; `Delayed Days` calculated column isolates orders that breached SLA 
+**In-Period Tracking**:- `MTD Sales`, `QTD Sales`, `YTD Sales` with `MOM%`, `QOQ%`, `YOY%` allow leadership to identify in-period shortfalls before close
+**Executive Self-Service**:-Field parameter (`KPIS` table) drives dynamic KPI switching on the Executive Overview, removing the need for analyst involvement in routine leadership queries 
+**Waterfall P&L View**:-`Waterfall Value` measure (driven by `Waterfall Categories` table: Gross Sales → Discounts → Net Sales → COGS → Profit) provides a visual P&L bridge that explains profit movement in a single chart
+**Geographic Prioritisation**:- Country-level sales and profit analysis (`Dim_Territory`, `shapeMap` visual) identifies which markets to grow, defend, or review
