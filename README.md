@@ -61,19 +61,93 @@ This dashboard directly enables the following measurable business outcomes:
 
 The following outcomes are directly enabled by this dashboard:
 
-- ✅ **Profit margin visible at every level** — product, country, promotion channel, and time period
-- ✅ **P&L bridge available on demand** — the Profit Bridge waterfall shows the exact contribution of discounts and COGS to the profit line
-- ✅ **Promotion effectiveness quantified** — sales lift during active campaigns measured and visualised per promotion name and type
-- ✅ **Logistics SLA compliance tracked** — on-time delivery % benchmarked against prior year, by ship mode and carrier
-- ✅ **Year-over-year comparison across all KPIs** — every metric shows PY actual and directional indicator (▲/▼) with colour coding
-- ✅ **In-period alerting** — MTD/QTD/YTD against prior period enables proactive course correction before period close
-- ✅ **Executive self-service** — field parameters and collapsible slicer panel allow leadership to answer their own questions
-- ✅ **Full drill-through capability** — from executive summary through to order-level detail via Product Detailed and Country Detailed pages
-- ✅ **Operational efficiency benchmarking** — ship mode and carrier performance compared side by side
+- ✅ **Profit margin visible at every level** :- product, country, promotion channel, and time period
+- ✅ **P&L bridge available on demand**:- the Profit Bridge waterfall shows the exact contribution of discounts and COGS to the profit line
+- ✅ **Promotion effectiveness quantified**:- sales lift during active campaigns measured and visualised per promotion name and type
+- ✅ **Logistics SLA compliance tracked**:- on-time delivery % benchmarked against prior year, by ship mode and carrier
+- ✅ **Year-over-year comparison across all KPIs**:- every metric shows PY actual and directional indicator (▲/▼) with colour coding
+- ✅ **In-period alerting**:- MTD/QTD/YTD against prior period enables proactive course correction before period close
+- ✅ **Executive self-service**:- field parameters and collapsible slicer panel allow leadership to answer their own questions
+- ✅ **Full drill-through capability**:- from executive summary through to order-level detail via Product Detailed and Country Detailed pages
+- ✅ **Operational efficiency benchmarking**:- ship mode and carrier performance compared side by side
 
 
 **Waterfall P&L View**:-`Waterfall Value` measure (driven by `Waterfall Categories` table: Gross Sales → Discounts → Net Sales → COGS → Profit) provides a visual P&L bridge that explains profit movement in a single chart
 
 **Geographic Prioritisation**:- Country-level sales and profit analysis (`Dim_Territory`, `shapeMap` visual) identifies which markets to grow, defend, or review
+
+## 6. Target Audience & Stakeholders
+
+### Executive Leadership — C-Suite & Commercial Directors
+**Pages served:** Executive Overview, KPIs
+
+Headline KPIs (Total Sales, Total Gross Sales, Total Profit, Total COGS, Total Discounts) with PY comparators and trend direction indicators. Field parameter slicer enables dynamic switching between metrics without analyst support. Designed for weekly or monthly business reviews.
+
+### Commercial & Sales Management
+**Pages served:** Product Deep-Dive, Trend & Growth Analytics, Country Detailed
+
+Product-level profitability ranking, Profit Bridge waterfall analysis, country-wise sales and profit combo charts, and quarterly discount impact trending. Supports product portfolio decisions, market prioritisation, and promotional planning.
+
+### Marketing & Promotions Teams
+**Pages served:** Delivery & Promos, Executive Overview (Promotion Channel donut)
+
+Discount percentage by promotion type, sales lift during active promotions, and promotion channel share of revenue. Enables data-driven decisions on which promotion types and channels to scale or retire.
+
+### Supply Chain & Operations
+**Pages served:** Delivery & Promos, Operational Efficiency
+
+On-time delivery % by ship mode, average delivery days vs. SLA (`EstimatedDeliveryDays`), delayed days by carrier, and ship mode operational efficiency comparison. Supports carrier negotiation, route optimisation, and SLA review.
+
+### BI & Data Analysts
+**Pages served:** All pages + semantic model
+
+Clean, documented star schema with centralised `CalMeasures` table, consistent naming conventions, and reusable time-intelligence patterns. The TMDL format enables version control and collaborative development.
+
+## 7. Solution Architecture
+
+Source Files (CSV)
+         │
+         ▼
+Power Query (M) — ETL Layer
+  ├── Fact_Sales.csv        → 18 columns, type enforcement, null replacement
+  ├── Dim_Products.csv      → 2 columns, product catalogue
+  ├── Dim_Promotions.csv    → 7 columns, promotion attributes + date range
+  ├── DimShipMode.csv       → 4 columns, carrier + SLA days
+  └── DimTerritory.csv      → 2 columns (after removing unused cols), country lookup
+         │
+         ▼
+Star Schema Data Model
+  ├── Fact_Sales            (central fact — transactions, financials, FK keys)
+  ├── DimDate               (calculated calendar 2022–2025, time intelligence anchor)
+  ├── Dim_Products          (product dimension)
+  ├── Dim_Territory         (geographic dimension, Country data category)
+  ├── Dim_Promotions        (promotion dimension with StartDate/EndDate)
+  ├── Dim_Shipmode          (ship mode + EstimatedDeliveryDays SLA)
+  ├── CalMeasures           (disconnected table — all 70+ DAX measures)
+  ├── KPIS                  (field parameter — dynamic KPI switching)
+  └── Waterfall Categories  (DATATABLE — ordered P&L bridge categories)
+         │
+         ▼
+Calculated Columns (in Fact_Sales)
+  ├── Delivery Dates = DATEDIFF(ShipDate, Delivered Date, DAY)
+  └── Delayed Days   = MAX(0, Delivery Dates − EstimatedDeliveryDays)
+         │
+         ▼
+DAX Measure Layer (CalMeasures)
+  ├── Core KPIs         (Sales, Profit, COGS, Discounts, Gross Sales, Units Sold, Orders)
+  ├── PY Comparators    (SAMEPERIODLASTYEAR for every core KPI)
+  ├── Growth %          (DIVIDE-based YoY growth for every metric)
+  ├── Time Intelligence (TOTALYTD, TOTALQTD, TOTALMTD, PREVIOUSMONTH, PREVIOUSQUARTER)
+  ├── Operational       (On-Time Delivery %, Avg Delivery Days — USERELATIONSHIP pattern)
+  ├── FORMAT measures   (string-formatted growth % with ▲/▼ directional indicator)
+  ├── Color measures    (SWITCH TRUE() → Green/Red/Gray conditional formatting)
+  └── Waterfall Value   (SWITCH on Waterfall Categories for P&L bridge)
+         │
+         ▼
+Report Layer — 9 Pages
+  Executive Overview → Product Deep-Dive → Delivery & Promos
+  → Trend & Growth Analytics → Overview → KPIs
+  → Product Detailed → Country Detailed → Operational Efficiency
+
 
 
