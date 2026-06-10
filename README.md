@@ -241,32 +241,52 @@ Single-page leadership summary. KPI cards for Sales, Profit, COGS, Discounts, Gr
 
 <img width="1321" height="865" alt="image" src="https://github.com/user-attachments/assets/129e38cd-c7bc-4738-8035-3503e667c0e4" />
 
-
-**2. Rationalise the Product Portfolio**
-
 ### Page 2 - Product Deep-Dive
 Product-level revenue and profitability. Gross Sales by Product (column chart), Profit Bridge Analysis (waterfall using `Waterfall Value` measure), product bar charts, donut breakdown. Slicers: Year, Country, Promotion Channel, Ship Mode.
+
+<img width="1222" height="828" alt="image" src="https://github.com/user-attachments/assets/fc331ca9-de5a-4a74-b119-53700ee49054" />
+
 
 ### Page 3 - Delivery & Promos
 Operational and promotional performance. Operational Efficiency (clustered bar), Ship Mode Operational Efficiency (column chart), Discount % by Promotion Type (column), Sales Lifting During Active Promos (bar chart). Slicers: Promotion Name, Year, Ship Mode.
 
+<img width="1332" height="840" alt="image" src="https://github.com/user-attachments/assets/2a68f514-e81c-4667-9000-f5cd30c8e0fa" />
+
+
 ### Page 4 - Trend & Growth Analytics
 Multi-year trend and seasonality analysis. Annual Business Performance (combo — Sales + Profit), Country-wise Sales & Profit Analysis (combo), Discount Impact on Quarterly Profit (combo), Profit by Year (line). Slicers: Year, Product, Quarter.
+
+<img width="1341" height="835" alt="image" src="https://github.com/user-attachments/assets/305f832a-e7ce-4e10-9cff-dead473f5c84" />
+
 
 ### Page 5 - Overview
 Full interactive single-page view with collapsible slicer panel (bookmark-controlled). Geographic shape map, all core visuals, full slicer set including Shipping Carrier. Designed for ad-hoc exploration.
 
+<img width="1227" height="832" alt="image" src="https://github.com/user-attachments/assets/286a905d-1f91-4c18-b878-5a7433785287" />
+
+
 ### Page 6 - KPIs
 Granular KPI scorecard with 15 KPI cards covering all core and operational metrics. Every metric shows current value, PY comparator, growth %, and colour-coded directional indicator. Slicers: Year, Country, Quarter. Three domain grouping sections (Sales / Operational / Efficiency).
+
+<img width="1330" height="842" alt="image" src="https://github.com/user-attachments/assets/69f836cb-09df-4ca2-9e96-5cc25171a9cb" />
+
 
 ### Page 7 - Product Detailed
 Matrix drill-through: products as rows, full measure set as columns (Sales, Gross Sales, Profit, COGS, Discounts, Units Sold, Profit Margin). Supports portfolio-level analysis.
 
+<img width="827" height="343" alt="image" src="https://github.com/user-attachments/assets/f870541e-0b51-453e-8fe0-a14c0c4b8e8e" />
+
+
 ### Page 8 - Country Detailed
 Four pivot matrices covering sales performance, order volumes, profit analysis, and promotion activity by country — enabling geographic deep-dives directly from summary pages.
 
+<img width="866" height="392" alt="image" src="https://github.com/user-attachments/assets/5680855f-96a0-4cf8-bb02-eebfc37539ba" />
+
+
 ### Page 9 - Operational Efficiency
 Transaction-level delivery table and shipmode/carrier pivot with efficiency metrics. Entry point for logistics investigations.
+
+<img width="1097" height="236" alt="image" src="https://github.com/user-attachments/assets/612d2e26-f098-4e76-9409-c93af6f3742c" />
 
 ---
 
