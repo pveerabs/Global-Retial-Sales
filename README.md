@@ -45,7 +45,7 @@ This dashboard directly enables the following measurable business outcomes:
 
 ## Business Area- Impact Enabled
 
-**P&L Management**:- Profit margin tracked at product, country, and promotion-channel level for the first time; `Profit Margin` and `PY Profit Margin` measures enable YoY margin benchmarking 
+**P&L Management**:- Profit margin tracked at product, country, and promotion-channel level for the first time; `Profit Margin` and `PY Profit Margin` measures enable YoY margin benchmarking |
 **Discount Governance** :-'Discount Percentage` (discounts as % of gross sales) and `PY Discount Percentage` expose whether discount rates are increasing year-over-year; `Discounts Color` signals deterioration automatically
 **Promotion ROI**:- Sales lift during active promotions (`Sales lifting during Active Promos` visual) quantified against baseline; `Promotion Discount` measure ties channel-level discount rates to actual revenue
 **Logistics SLA Compliance**:-'On-Time Delivery %` compared to `PY On-Time Delivery` surfaces carrier performance gaps; `Delayed Days` calculated column isolates orders that breached SLA 
