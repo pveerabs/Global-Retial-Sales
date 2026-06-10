@@ -78,7 +78,7 @@ The following outcomes are directly enabled by this dashboard:
 
 ## 6. Target Audience & Stakeholders
 
-### Executive Leadership — C-Suite & Commercial Directors
+### Executive Leadership:- C-Suite & Commercial Directors
 **Pages served:** Executive Overview, KPIs
 
 Headline KPIs (Total Sales, Total Gross Sales, Total Profit, Total COGS, Total Discounts) with PY comparators and trend direction indicators. Field parameter slicer enables dynamic switching between metrics without analyst support. Designed for weekly or monthly business reviews.
@@ -105,7 +105,10 @@ Clean, documented star schema with centralised `CalMeasures` table, consistent n
 
 ## 7. Solution Architecture
 
-Source Files (CSV)
+## 7. Solution Architecture
+
+```
+Source Files (CSV — F:\Sales Transactions\)
          │
          ▼
 Power Query (M) — ETL Layer
@@ -148,6 +151,6 @@ Report Layer — 9 Pages
   Executive Overview → Product Deep-Dive → Delivery & Promos
   → Trend & Growth Analytics → Overview → KPIs
   → Product Detailed → Country Detailed → Operational Efficiency
-
+```
 
 
