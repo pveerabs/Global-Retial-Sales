@@ -53,3 +53,6 @@ This dashboard directly enables the following measurable business outcomes:
 **Executive Self-Service**:-Field parameter (`KPIS` table) drives dynamic KPI switching on the Executive Overview, removing the need for analyst involvement in routine leadership queries 
 **Waterfall P&L View**:-`Waterfall Value` measure (driven by `Waterfall Categories` table: Gross Sales → Discounts → Net Sales → COGS → Profit) provides a visual P&L bridge that explains profit movement in a single chart
 **Geographic Prioritisation**:- Country-level sales and profit analysis (`Dim_Territory`, `shapeMap` visual) identifies which markets to grow, defend, or review
+
+| **P&L Management** | Profit margin tracked at product, country, and promotion-channel level for the first time; `Profit Margin` and `PY Profit Margin` measures enable YoY margin benchmarking |
+| **Discount Governance** | `Discount Percentage` (discounts as % of gross sales) and `PY Discount Percentage` expose whether discount rates are increasing year-over-year; `Discounts Color` signals deterioration automatically |
