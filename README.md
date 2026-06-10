@@ -239,6 +239,10 @@ This measure drives the Profit Bridge waterfall chart — a visual P&L decomposi
 ### Page 1 - Executive Overview
 Single-page leadership summary. KPI cards for Sales, Profit, COGS, Discounts, Gross Sales with PY comparators. Monthly Sales Trend (line chart), Product KPI Analysis (clustered column), Top 5 Products by Profit Margin (table), Sales by Promotion Channel (donut). Field parameter slicer for dynamic metric switching. Slicers: Year, Country, Product. Navigation bookmarks to all main pages.
 
+https://app.powerbi.com/reportEmbed?reportId=8d295fb6-5e72-4cae-9339-8967af124f33&autoAuth=true&ctid=f1f14c92-fde3-489f-8eeb-514d2f167be6
+
+**2. Rationalise the Product Portfolio**
+
 ### Page 2 - Product Deep-Dive
 Product-level revenue and profitability. Gross Sales by Product (column chart), Profit Bridge Analysis (waterfall using `Waterfall Value` measure), product bar charts, donut breakdown. Slicers: Year, Country, Promotion Channel, Ship Mode.
 
@@ -376,3 +380,6 @@ The `MTD Sales`, `QTD Sales`, and `YTD Sales` measures with their `MOM%`, `QOQ%`
 | `ShipMode` | Shipping mode name (e.g. Standard, Express) |
 | `EstimatedDeliveryDays` | SLA — expected maximum delivery days for this mode |
 | `ShippingCarrier` | Carrier name |
+
+
+
