@@ -1,4 +1,5 @@
 # Global-Retial-Sales
+# Power BI Link : https://app.powerbi.com/reportEmbed?reportId=8d295fb6-5e72-4cae-9339-8967af124f33&autoAuth=true&ctid=f1f14c92-fde3-489f-8eeb-514d2f167be6
 
 ## 1. Project Overview
 
