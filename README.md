@@ -108,7 +108,7 @@ Clean, documented star schema with centralised `CalMeasures` table, consistent n
 ## 7. Solution Architecture
 
 ```
-Source Files (CSV — F:\Sales Transactions\)
+Source Files (CSV)
          │
          ▼
 Power Query (M) — ETL Layer
@@ -152,5 +152,40 @@ Report Layer — 9 Pages
   → Trend & Growth Analytics → Overview → KPIs
   → Product Detailed → Country Detailed → Operational Efficiency
 ```
+### Relationships
 
+| From Table | From Column | To Table | To Column | Active |
+|---|---|---|---|---|
+| Fact_Sales | OrderDate | DimDate | Date | ✅ Active |
+| Fact_Sales | Delivered Date | DimDate | Date | ❌ Inactive (USERELATIONSHIP) |
+| Fact_Sales | ShipDate | DimDate | Date | ❌ Inactive |
+| Fact_Sales | ProductID | Dim_Products | ProductID | ✅ Active |
+| Fact_Sales | TerritoryID | Dim_Territory | TerritoryID | ✅ Active |
+| Fact_Sales | PromotionID | Dim_Promotions | PromotionID | ✅ Active |
+| Fact_Sales | ShipModeID | Dim_Shipmode | ShipModeID | ✅ Active |
 
+> **Note on inactive relationships:** `Avg Delivery Days` and `On-Time Delivery %` both use `USERELATIONSHIP(DimDate[Date], Fact_Sales[Delivered Date])` to activate the delivery date path at measure evaluation time, a correct and intentional role-playing date dimension pattern.
+
+## 9. DAX Measures Reference
+
+All measures reside in the `CalMeasures` table, organised into display folders.
+
+### Sales
+
+| Measure | DAX Pattern | Notes |
+|---|---|---|
+| `Total Sales` | `SUM(Fact_Sales[  Sales ])` | Net revenue after discounts |
+| `PY Sales` | `CALCULATE([Total Sales], SAMEPERIODLASTYEAR(...))` | COALESCE to 0 on no-data periods |
+| `PY Sales Growth%` | `DIVIDE([Total Sales]-[PY Sales],[PY Sales])` | |
+| `PY FORMAT` | `FORMAT(...) & IF(... < 0, "▼", IF(... > 0, "▲", "▬"))` | String KPI label with direction |
+| `PL Color` | `SWITCH(TRUE(), ... > 0, "#008000", ... < 0, "#FF0000", "#808080")` | Green/Red/Gray |
+| `YTD Sales` | `TOTALYTD([Total Sales], DimDate[Date])` | |
+| `QTD Sales` | `TOTALQTD([Total Sales], DimDate[Date])` | |
+| `MTD Sales` | `TOTALMTD([Total Sales], DimDate[Date])` | |
+| `PM Sales` | `CALCULATE([Total Sales], PREVIOUSMONTH(...))` | |
+| `PQ Sales` | `CALCULATE([Total Sales], PREVIOUSQUARTER(...))` | |
+| `YOY%` | `DIVIDE([Total Sales]-[PY Sales],[PY Sales],0)` | |
+| `MOM%` | `DIVIDE([Total Sales]-[PM Sales],[PM Sales],0)` | |
+| `QOQ%` | `DIVIDE([Total Sales]-[PQ Sales],[PQ Sales],0)` | |
+| `Running Totals` | `CALCULATE([Total Sales], FILTER(ALLSELECTED(...), Date<=MAX(Date)))` | Cumulative to selected date |
+| `Avg Sales Price` | `AVERAGE(Fact_Sales[  Sales ])` | |
