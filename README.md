@@ -239,7 +239,8 @@ This measure drives the Profit Bridge waterfall chart — a visual P&L decomposi
 ### Page 1 - Executive Overview
 Single-page leadership summary. KPI cards for Sales, Profit, COGS, Discounts, Gross Sales with PY comparators. Monthly Sales Trend (line chart), Product KPI Analysis (clustered column), Top 5 Products by Profit Margin (table), Sales by Promotion Channel (donut). Field parameter slicer for dynamic metric switching. Slicers: Year, Country, Product. Navigation bookmarks to all main pages.
 
-https://app.powerbi.com/reportEmbed?reportId=8d295fb6-5e72-4cae-9339-8967af124f33&autoAuth=true&ctid=f1f14c92-fde3-489f-8eeb-514d2f167be6
+<img width="1321" height="865" alt="image" src="https://github.com/user-attachments/assets/129e38cd-c7bc-4738-8035-3503e667c0e4" />
+
 
 **2. Rationalise the Product Portfolio**
 
