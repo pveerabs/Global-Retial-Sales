@@ -1,0 +1,5 @@
+ShipModeID,ShipMode,EstimatedDeliveryDays,ShippingCarrier
+1,Standard,5,DHL
+2,Express,2,FedEx
+3,Same Day,1,UPS
+4,Economy,7,BlueDart
