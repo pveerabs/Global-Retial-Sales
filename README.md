@@ -23,7 +23,7 @@ Specific pain points driving this project:
 
 The central question this dashboard was built to answer:
 
-> **Is the business growing profitably — and if not, where exactly is value being lost?**
+> **Is the business growing profitably,and if not, where exactly is value being lost?**
 
 This decomposes into four sub-problems:
 
@@ -38,7 +38,6 @@ Orders were moving through multiple ship modes and carriers. The `Delayed Days` 
 
 **4. Trend Blindness**
 Without time-intelligence measures (MTD, QTD, YTD, PY, MOM, QOQ, YOY), leadership had no mechanism to detect emerging trends early enough to act within the same period.
-
 
 ## 4. Business Impact
 
