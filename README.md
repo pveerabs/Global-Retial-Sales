@@ -9,7 +9,7 @@ The solution is built on a **clean star schema data model**, a centralised **DAX
 
 ## 2. Problem Statement
 
-> Retail leadership had no unified, reliable view of commercial performance across their global markets. Profitability was visible only at a gross level, promotional ROI was unmeasured, and logistics performance was tracked manually in spreadsheets  making it impossible to identify where margin was being lost, which promotions were working, or which shipping carriers were underperforming.
+Retail leadership had no unified, reliable view of commercial performance across their global markets. Profitability was visible only at a gross level, promotional ROI was unmeasured, and logistics performance was tracked manually in spreadsheets  making it impossible to identify where margin was being lost, which promotions were working, or which shipping carriers were underperforming.
 
 Specific pain points driving this project:
 
