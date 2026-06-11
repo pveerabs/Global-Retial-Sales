@@ -234,6 +234,7 @@ SWITCH(
 ```
 
 This measure drives the Profit Bridge waterfall chart — a visual P&L decomposition showing the exact contribution of each component from Gross Sales down to Profit.
+<img width="1153" height="722" alt="image" src="https://github.com/user-attachments/assets/67558413-f75b-4ea1-be44-ed5105a98f4d" />
 
 ## 10. Report Pages & Visuals
 
